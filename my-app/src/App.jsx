@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import { FaTwitter, FaFacebook } from 'react-icons/fa'; 
 
 function App() {
   const [quote, setQuote] = useState('');
   const [author, setAuthor] = useState('');
-  const [favorites, setFavorites] = useState([]);
 
   const fetchQuote = async () => {
     try {
@@ -17,17 +17,16 @@ function App() {
     }
   };
 
-
-
   useEffect(() => {
     fetchQuote();
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
-      <div className="bg-white p-8 rounded shadow-md max-w-lg w-full text-center">
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <div className="bg-slate-300 p-8 rounded shadow-md max-w-lg w-full text-center">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Random Quote</h1>
         <p className="text-xl italic text-gray-600 mb-4">"{quote}"</p>
+        <div className="border-t border-gray-400 flex-grow"></div>
         <p className="text-md font-semibold text-gray-500 mb-8">- {author}</p>
 
         <div className="flex justify-center space-x-4">
@@ -37,8 +36,10 @@ function App() {
           >
             New Quote
           </button>
+
+
           <button
-            className="bg-black text-white py-2 px-4 rounde"
+            className="bg-black text-white py-2 px-4 rounded flex items-center space-x-2"
             onClick={() =>
               window.open(
                 `https://twitter.com/intent/tweet?text=${quote} - ${author}`,
@@ -46,10 +47,13 @@ function App() {
               )
             }
           >
-            Share on X
+            <FaTwitter /> 
+            <span>Tweet</span>
           </button>
+
+
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded "
+            className="bg-blue-500 text-white py-2 px-4 rounded flex items-center space-x-2"
             onClick={() =>
               window.open(
                 `https://www.facebook.com/sharer/sharer.php?quote=${quote} - ${author}`,
@@ -57,23 +61,13 @@ function App() {
               )
             }
           >
-            Share on Facebook
+            <FaFacebook /> 
+            <span> Facebook</span>
           </button>
+
+
         </div>
       </div>
-
-      {favorites.length > 0 && (
-        <div className="mt-8 bg-white p-6 rounded shadow-md max-w-lg w-full">
-          <h2 className="text-xl font-bold mb-4">Liked Quotes</h2>
-          <ul className="space-y-4">
-            {favorites.map((fav, index) => (
-              <li key={index} className="text-gray-800">
-                "{fav.quote}" - {fav.author}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
