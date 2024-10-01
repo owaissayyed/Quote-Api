@@ -9,7 +9,7 @@ function App() {
 
   const fetchQuote = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/quote');
+      const response = await axios.get('http://localhost:80/api/quote');
       setQuote(response.data.quote);
       setAuthor(response.data.author);
     } catch (error) {
